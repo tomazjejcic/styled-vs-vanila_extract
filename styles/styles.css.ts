@@ -10,8 +10,7 @@ export const [themeClass, vars] = createTheme({
 });
 
 export const exampleStyle = style({
-  backgroundColor: 'blue',
-  // backgroundColor: vars.color.brand,
+  backgroundColor: vars.color.brand,
   color: 'white',
   padding: 10
 });
