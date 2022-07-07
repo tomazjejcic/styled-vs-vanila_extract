@@ -3,8 +3,9 @@ import styled from "styled-components";
 
 import { ProductListData } from "../data/productListData"
 
-const Container = styled.h1`
-    display: flex
+const Container = styled.div`
+    display: flex;
+    margin-top: 8px;
 `
 
 const Title = styled.h1`
@@ -51,7 +52,6 @@ const ProductList = styled.div`
     font-size: 22px;
     line-height: 24px;
     list-style: none;
-    margin: 8px;
     > * {
         border: 1px solid red;
     }
