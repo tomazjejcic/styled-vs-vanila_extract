@@ -18,6 +18,7 @@ const Home: NextPage = () => {
         </h1>
 
         <p>styled vs extract: VANILLA EXTRACT</p>
+
       </main>
 
       <footer className={styles.footer}>
