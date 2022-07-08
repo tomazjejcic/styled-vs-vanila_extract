@@ -1,4 +1,3 @@
-import { useState } from "react";
 import styled from "styled-components";
 
 import { ProductListData } from "../data/productListData"
@@ -29,18 +28,25 @@ const Navigation = styled.aside`
     min-width: 300px;
 `
 
+const NavigationTitle = styled.h2`
+    color: green;
+    background: lightgreen;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+`
+
 const FilterWrapper = styled.div`
     background: lightgrey;
     padding: 8px;
     font-size: 16px;
 `
 
-const Filter = styled.div`
+const FilterItem = styled.div`
     background: white;
     color: blue;
     margin: 4px;
     padding: 4px;
-    // font-size: 16px;
 `
 
 const ProductList = styled.div`
@@ -83,6 +89,13 @@ const ProductItemTitle = styled.h4`
     overflow: hidden;
 `
 
+const ProductId = styled.div`
+    padding: 15px;
+    color: white;
+    text-align: right;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+`
+
 const ItemImage = styled.img`
     width: 100%;
 `
@@ -105,9 +118,9 @@ const Price = styled.div<{style: any}>`
 `
 
 const BrandKeyWrapper = styled.div`
-        background: red;
-        padding: 8px;
-        border: solid darkred 3px;
+    background: red;
+    padding: 8px;
+    border: solid darkred 3px;
 `
 const BrandKey = styled.div`
     position: relative;
@@ -136,98 +149,38 @@ const ArrowLeft = styled.div`
 `;
 
 const List = () => {
-    // console.log('## ProductListData:', ProductListData);
-    const [productFilter, setProductFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Produktart');
-    });
-    const [groseFilter, setGroseFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Größe');
-    });
-    const [farbeFilter, setFarbeFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Farbe');
-    });
-    const [musterFilter, setMusterFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Muster');
-    });
-    const [markeFilter, setMarkeFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Marke');
-    });
-    const [materialFilter, setMaterialFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Material');
-    });
-    const [verschlussFilter, setVerschlussFilter] = useState(() => {
-        return ProductListData.filters.filter(filter => filter.name === 'Verschluss');
-    });
+
+    const filterNames = [
+        'Produktart',
+        'Größe',
+        'Farbe',
+        'Marke',
+        'Muster',
+        'Material',
+        'Verschluss'
+    ]
+
+    const allFilters = filterNames.map(filterName => {
+        return ProductListData.filters.filter(filter => filter.name === filterName)[0];
+    })
 
     return (
         <>
             <Title>Products List</Title>
             <Container>
                 <Navigation>
-                    <Title>Filters</Title>
-                    <FilterWrapper>
-                        <FiltersTitle>{productFilter[0].name}</FiltersTitle>
-                        {productFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{groseFilter[0].name}</FiltersTitle>
-                        {groseFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{farbeFilter[0].name}</FiltersTitle>
-                        {farbeFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{musterFilter[0].name}</FiltersTitle>
-                        {musterFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{markeFilter[0].name}</FiltersTitle>
-                        {markeFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{materialFilter[0].name}</FiltersTitle>
-                        {materialFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
-                    <FilterWrapper>
-                        <FiltersTitle>{verschlussFilter[0].name}</FiltersTitle>
-                        {verschlussFilter[0].options.map((filter) => (
-                            <Filter key={filter.name}>
-                                <input type="checkbox" id={filter.name} name={filter.name}/>
-                                <label htmlFor={filter.name}>{filter.name}</label>
-                            </Filter>
-                        ))}
-                    </FilterWrapper>
+                    <NavigationTitle>Filters</NavigationTitle>
+                    {allFilters.map(filter => (
+                        <FilterWrapper key={filter.id}>
+                            <FiltersTitle>{filter.name}</FiltersTitle>
+                            {filter.options.map((filter) => (
+                                <FilterItem key={filter.name}>
+                                    <input type="checkbox" id={filter.name} name={filter.name}/>
+                                    <label htmlFor={filter.name}>{filter.name}</label>
+                                </FilterItem>
+                            ))}
+                        </FilterWrapper>
+                    ))}
                 </Navigation>
                 <main>
                     <ProductList>
@@ -236,7 +189,7 @@ const List = () => {
                                 <ProductItemTitle>
                                     {item.product.name}
                                 </ProductItemTitle>
-                                <p>{item.product.id}</p>
+                                <ProductId><em>{item.product.id}</em></ProductId>
                                 <ItemImage src={`https://www.galeria.de/cf-img-product/${item.product.images[0].url}/1280`} />
                                 <PriceContainer>
                                     {item.dynamic.displayPrices.map((price: any, i: number) => (
