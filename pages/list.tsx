@@ -61,7 +61,7 @@ const List = () => {
     return (
         <>
             <h1 className={title}>
-                Products List
+                Vanilla Extract
             </h1>
             <div className={container}>
                 <aside className={navigation}>
