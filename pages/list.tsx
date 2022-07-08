@@ -166,7 +166,7 @@ const List = () => {
 
     return (
         <>
-            <Title>Products List</Title>
+            <Title>Styled Components</Title>
             <Container>
                 <Navigation>
                     <NavigationTitle>Filters</NavigationTitle>
